@@ -16,17 +16,25 @@ SCRIPT_URL="https://raw.githubusercontent.com/rohoswagger/dotfile/main/setup.sh"
 if [[ "${1}" == "--user-setup" ]]; then
     cd ~
 
-    echo "==> Generating SSH key..."
-    ssh-keygen -t ed25519 -C "rohod04@gmail.com" -f ~/.ssh/id_ed25519 -N ""
-    echo ""
-    echo "Add this public key to GitHub (https://github.com/settings/keys) before continuing:"
-    echo ""
-    cat ~/.ssh/id_ed25519.pub
-    echo ""
-    printf "Press enter once you've added the key to GitHub..." && read REPLY
+    if [[ ! -f ~/.ssh/id_ed25519 ]]; then
+        echo "==> Generating SSH key..."
+        ssh-keygen -t ed25519 -C "rohod04@gmail.com" -f ~/.ssh/id_ed25519 -N ""
+        echo ""
+        echo "Add this public key to GitHub (https://github.com/settings/keys) before continuing:"
+        echo ""
+        cat ~/.ssh/id_ed25519.pub
+        echo ""
+        printf "Press enter once you've added the key to GitHub..." && read REPLY
+    else
+        echo "==> SSH key already exists, skipping."
+    fi
 
-    echo "==> Installing Oh My Zsh..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+        echo "==> Installing Oh My Zsh..."
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    else
+        echo "==> Oh My Zsh already installed, skipping."
+    fi
 
     echo "==> Copying .zshrc from dotfile repo..."
     curl -fsSL https://raw.githubusercontent.com/rohoswagger/dotfile/main/.zshrc -o ~/.zshrc
