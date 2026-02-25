@@ -15,16 +15,20 @@ This will install:
 - **Oh My Zsh** with the robbyrussell theme
 - **.zshrc** pulled directly from this repo
 - **nvm** + Node LTS
+- **bun**
 - **Neovim** (latest release)
 - **k9s** (Kubernetes CLI)
 - **uv** (Python package manager)
-- **Claude Code**
+- **httpie**
+- **Claude Code** + GitHub MCP + Playwright MCP
 
-After the script completes, run `source ~/.zshrc` or open a new shell.
+The script will automatically apply the shell config on completion.
 
 ## Repo structure
 
 ```
 .zshrc        # general aliases and shell config
 setup.sh      # one-shot machine bootstrap script
+CLAUDE.md     # agent-facing alias and tools reference
+README.md     # this file
 ```

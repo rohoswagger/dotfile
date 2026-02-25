@@ -115,5 +115,8 @@ else
 fi
 claude mcp add playwright -- npx -y @playwright/mcp
 
+echo "==> Applying shell config..."
+source ~/.zshrc
+
 echo ""
-echo "Done! Run 'refresh' or open a new shell to apply changes."
+echo "Done!"
