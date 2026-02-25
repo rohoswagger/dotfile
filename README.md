@@ -4,10 +4,10 @@ Personalized machine setup for a fresh Linux VPS.
 
 ## Setup
 
-Run this on a fresh machine:
+Run this as root on a fresh machine:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/rohoswagger/dotfile/main/setup.sh -o /tmp/setup.sh && bash /tmp/setup.sh
+curl -fsSL https://raw.githubusercontent.com/rohoswagger/dotfile/main/setup.sh -o ~/setup.sh && bash ~/setup.sh
 ```
 
 This installs: git, zsh + Oh My Zsh, Neovim, uv, httpie, nvm + Node LTS, bun, k9s, and Claude Code with GitHub and Playwright MCPs.
