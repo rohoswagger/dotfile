@@ -36,6 +36,15 @@ echo ""
 echo "==> Installing git..."
 apt-get update -qq && apt-get install -y git
 
+echo "==> Generating SSH key..."
+ssh-keygen -t ed25519 -C "rohod04@gmail.com" -f ~/.ssh/id_ed25519 -N ""
+echo ""
+echo "Add this public key to GitHub (https://github.com/settings/keys) before continuing:"
+echo ""
+cat ~/.ssh/id_ed25519.pub
+echo ""
+read "?Press enter once you've added the key to GitHub..."
+
 echo "==> Installing Oh My Zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
