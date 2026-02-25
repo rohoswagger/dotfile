@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 # setup.sh — bootstrap a fresh VPS
 
 set -e
@@ -7,7 +7,7 @@ echo "=========================================="
 echo "  rohoswagger machine setup script"
 echo ""
 echo "  Shell"
-echo "    - git, Oh My Zsh, zshrc, Neovim"
+echo "    - git, zsh, Oh My Zsh, zshrc, Neovim"
 echo ""
 echo "  Python"
 echo "    - uv, httpie"
@@ -22,7 +22,7 @@ echo "  AI"
 echo "    - Claude Code, GitHub MCP, Playwright MCP"
 echo "=========================================="
 echo ""
-read "REPLY?Proceed? [y/N] "
+read -p "Proceed? [y/N] " REPLY
 if [[ ! "$REPLY" =~ ^[Yy]$ ]]; then
     echo "Aborted."
     exit 0
@@ -33,8 +33,11 @@ echo ""
 # Shell
 # -----------------------------------------------
 
-echo "==> Installing git..."
-apt-get update -qq && apt-get install -y git
+echo "==> Installing git and zsh..."
+apt-get update -qq && apt-get install -y git zsh
+
+echo "==> Setting zsh as default shell..."
+chsh -s "$(which zsh)"
 
 echo "==> Generating SSH key..."
 ssh-keygen -t ed25519 -C "rohod04@gmail.com" -f ~/.ssh/id_ed25519 -N ""
@@ -43,7 +46,7 @@ echo "Add this public key to GitHub (https://github.com/settings/keys) before co
 echo ""
 cat ~/.ssh/id_ed25519.pub
 echo ""
-read "?Press enter once you've added the key to GitHub..."
+read -p "Press enter once you've added the key to GitHub..."
 
 echo "==> Installing Oh My Zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
@@ -99,15 +102,19 @@ rm -rf k9s k9s_Linux_amd64.tar.gz
 # AI
 # -----------------------------------------------
 
-echo "==> Installing Claude Code..."
-npm install -g @anthropic-ai/claude-code
+if ! command -v claude &>/dev/null; then
+    echo "==> Installing Claude Code..."
+    npm install -g @anthropic-ai/claude-code
+else
+    echo "==> Claude Code already installed, skipping."
+fi
 
 echo "==> Installing CLAUDE.md for agent awareness..."
 mkdir -p ~/.claude
 curl -fsSL https://raw.githubusercontent.com/rohoswagger/dotfile/main/CLAUDE.md -o ~/.claude/CLAUDE.md
 
 echo "==> Configuring MCP servers..."
-read "GITHUB_TOKEN?Enter GitHub personal access token (leave blank to skip): "
+read -p "Enter GitHub personal access token (leave blank to skip): " GITHUB_TOKEN
 if [[ -n "$GITHUB_TOKEN" ]]; then
     claude mcp add github -e GITHUB_PERSONAL_ACCESS_TOKEN=$GITHUB_TOKEN -- npx -y @modelcontextprotocol/server-github
 else
@@ -115,8 +122,6 @@ else
 fi
 claude mcp add playwright -- npx -y @playwright/mcp
 
-echo "==> Applying shell config..."
-source ~/.zshrc
-
 echo ""
-echo "Done!"
+echo "Done! Switching to zsh..."
+exec zsh
