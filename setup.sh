@@ -119,7 +119,17 @@ echo ""
 
 # --- System packages ---
 echo "==> Installing system packages..."
-apt-get update -qq && apt-get install -y git zsh httpie sudo curl unzip
+apt-get update -qq && apt-get install -y git zsh httpie sudo curl unzip ncurses-base
+
+# --- Ghostty terminfo ---
+echo "==> Installing Ghostty terminfo..."
+if ! infocmp xterm-ghostty &>/dev/null 2>&1; then
+    curl -fsSL https://raw.githubusercontent.com/ghostty-org/ghostty/main/src/terminfo/ghostty.terminfo -o /tmp/ghostty.terminfo
+    tic -x /tmp/ghostty.terminfo
+    rm -f /tmp/ghostty.terminfo
+else
+    echo "    Ghostty terminfo already installed, skipping."
+fi
 
 # --- Create user ---
 echo "==> Creating user $USERNAME..."
