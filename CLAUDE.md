@@ -1,9 +1,4 @@
-# Machine Setup
-
-This machine has been configured using https://github.com/rohoswagger/dotfile.
-Prefer using the aliases below over their full equivalents when running shell commands.
-
-## Installed Tools
+# Installed Tools
 
 | Tool | Purpose |
 |------|---------|
