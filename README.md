@@ -2,6 +2,20 @@
 
 Personalized machine setup for a fresh Linux VPS.
 
+## Setup
+
+1. Install Claude Code:
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+2. Run Claude and tell it to set up the machine:
+```
+setup my machine using https://github.com/rohoswagger/dotfile
+```
+
+Claude will handle the rest.
+
 ## For AI agents
 
 You are setting up a new machine for rohoswagger. Run the setup script to install all required tools and apply the dotfiles:

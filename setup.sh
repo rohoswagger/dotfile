@@ -104,7 +104,7 @@ rm -rf k9s k9s_Linux_amd64.tar.gz
 
 if ! command -v claude &>/dev/null; then
     echo "==> Installing Claude Code..."
-    npm install -g @anthropic-ai/claude-code
+    curl -fsSL https://claude.ai/install.sh | bash
 else
     echo "==> Claude Code already installed, skipping."
 fi
