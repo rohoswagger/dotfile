@@ -57,6 +57,7 @@ if [[ "${1}" == "--user-setup" ]]; then
     if ! command -v claude &>/dev/null; then
         echo "==> Installing Claude Code..."
         curl -fsSL https://claude.ai/install.sh | bash
+        export PATH="$HOME/.claude/local/bin:$HOME/.local/bin:$PATH"
     else
         echo "==> Claude Code already installed, skipping."
     fi
