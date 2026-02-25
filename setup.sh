@@ -22,7 +22,7 @@ echo "  AI"
 echo "    - Claude Code, GitHub MCP, Playwright MCP"
 echo "=========================================="
 echo ""
-printf "Proceed? [y/N] " && read REPLY
+printf "Proceed? [y/N] " && read REPLY < /dev/tty
 if [[ ! "$REPLY" =~ ^[Yy]$ ]]; then
     echo "Aborted."
     exit 0
@@ -46,7 +46,7 @@ echo "Add this public key to GitHub (https://github.com/settings/keys) before co
 echo ""
 cat ~/.ssh/id_ed25519.pub
 echo ""
-printf "Press enter once you've added the key to GitHub..." && read REPLY
+printf "Press enter once you've added the key to GitHub..." && read REPLY < /dev/tty
 
 echo "==> Installing Oh My Zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
@@ -114,7 +114,7 @@ mkdir -p ~/.claude
 curl -fsSL https://raw.githubusercontent.com/rohoswagger/dotfile/main/CLAUDE.md -o ~/.claude/CLAUDE.md
 
 echo "==> Configuring MCP servers..."
-printf "Enter GitHub personal access token (leave blank to skip): " && read GITHUB_TOKEN
+printf "Enter GitHub personal access token (leave blank to skip): " && read GITHUB_TOKEN < /dev/tty
 if [[ -n "$GITHUB_TOKEN" ]]; then
     claude mcp add github -e GITHUB_PERSONAL_ACCESS_TOKEN=$GITHUB_TOKEN -- npx -y @modelcontextprotocol/server-github
 else
