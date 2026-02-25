@@ -4,6 +4,9 @@
 
 set -e
 
+export TERM="${TERM:-xterm}"
+[[ "$TERM" == "xterm-ghostty" ]] && export TERM="xterm-256color"
+
 USERNAME="rohoswagger"
 SCRIPT_URL="https://raw.githubusercontent.com/rohoswagger/dotfile/main/setup.sh"
 
@@ -107,7 +110,7 @@ echo ""
 
 # --- System packages ---
 echo "==> Installing system packages..."
-apt-get update -qq && apt-get install -y git zsh httpie sudo curl
+apt-get update -qq && apt-get install -y git zsh httpie sudo curl unzip
 
 # --- Create user ---
 echo "==> Creating user $USERNAME..."
