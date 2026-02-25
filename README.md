@@ -1,2 +1,2 @@
-# machine-setup
-Machine Setup Guide
+# dotfile
+personalized machine setup
