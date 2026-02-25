@@ -77,8 +77,7 @@ if [[ "${1}" == "--user-setup" ]]; then
 
     echo ""
     echo "=========================================="
-    echo "  Done! Log in as $USERNAME:"
-    echo "    ssh $USERNAME@<host>"
+    echo "  Done! Run: su - $USERNAME"
     echo "=========================================="
     exit 0
 fi
